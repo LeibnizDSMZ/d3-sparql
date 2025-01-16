@@ -29,9 +29,7 @@ We want to combine the species name and the designation of a strain in one colum
 ```sparql
 PREFIX d3o: <https://purl.dsmz.de/schema/>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-SELECT 
-    ?strain ?label ?genus ?species 
-    (CONCAT(?species, " ", ?des) AS ?strainName) 
+SELECT ?strain ?label (CONCAT(?species, " ", ?des) AS ?strainName) 
 WHERE {
     ?strain a d3o:Strain ;
         rdfs:label ?label ;
@@ -182,3 +180,30 @@ LIMIT 5
 ```
 
 
+
+
+## Federated queries
+
+We can also use federated queries to query multiple endpoints, e.g. to get the strain from UniProt:
+
+(coming soon)
+
+<!-- ```sparql
+PREFIX d3o: <https://purl.dsmz.de/schema/>
+PREFIX up: <http://purl.uniprot.org/core/>
+PREFIX taxon: <http://purl.uniprot.org/taxonomy/>
+
+SELECT ?strain ?name ?uniprot WHERE {
+    ?strain a d3o:Strain ;
+            rdfs:label ?name ;
+            d3o:hasTaxID ?tax. 
+    # Construct the taxonomy URI for uniprot
+    BIND(URI(CONCAT("http://purl.uniprot.org/taxonomy/", STR(?tax))) AS ?taxUri)
+  
+    SERVICE <https://sparql.uniprot.org/sparql> {
+        ?uniprot a up:Protein ;
+            up:organism ?taxon. 
+        ?taxon rdfs:subClassOf ?taxUri ;
+        up:rank up:Species .
+    }
+} -->
