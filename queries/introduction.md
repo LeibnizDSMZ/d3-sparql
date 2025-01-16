@@ -31,7 +31,7 @@ PREFIX d3o: <https://purl.dsmz.de/schema/>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 SELECT 
     ?strain ?label ?genus ?species 
-    (CONCAT(?species, " ", ?des) AS ?genusSpecies) 
+    (CONCAT(?species, " ", ?des) AS ?strainName) 
 WHERE {
     ?strain a d3o:Strain ;
         rdfs:label ?label ;
