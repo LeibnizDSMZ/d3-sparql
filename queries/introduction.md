@@ -21,7 +21,6 @@ SELECT * WHERE {
             rdfs:label ?label ;
             d3o:hasGenus ?genus .
 }
-LIMIT 5
 ```
 
 ## Combining optional values
@@ -39,7 +38,6 @@ WHERE {
     OPTIONAL {
         ?strain d3o:hasDesignation ?des .
     } 
-} LIMIT 5
 ```
 
 We can also use `OPTIONAL` to get additional information, e.g. the location of origin of a strain:
@@ -58,7 +56,6 @@ SELECT ?strain ?name ?origin WHERE {
             rdfs:label ?origin .
     }
 }
-LIMIT 5
 ```
 
 
@@ -80,7 +77,6 @@ SELECT ?strain ?name ?origin WHERE {
 
     FILTER (CONTAINS(?country, "Germany"))
 }
-LIMIT 5
 ```
 
 We can also use numeric filters, e.g. for the optimal growth temperature of a strain:
