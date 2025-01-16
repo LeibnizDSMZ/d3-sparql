@@ -24,7 +24,9 @@ SELECT * WHERE {
 LIMIT 5
 ```
 
-We want to combine the species name and the designation of a strain in one column. We can use `CONCAT` for this:
+## Combining optional values
+
+We want to combine the species name and the designation of a strain in one column. We can use `CONCAT` for this, but we also need to use `OPTIONAL` for the designation, as not all strains have a designation:
 
 ```sparql
 PREFIX d3o: <https://purl.dsmz.de/schema/>
@@ -33,8 +35,28 @@ SELECT ?strain ?label (CONCAT(?species, " ", ?des) AS ?strainName)
 WHERE {
     ?strain a d3o:Strain ;
         rdfs:label ?label ;
-        d3o:hasSpecies ?species ;
-        d3o:hasDesignation ?des .
+        d3o:hasSpecies ?species .
+    OPTIONAL {
+        ?strain d3o:hasDesignation ?des .
+    } 
+} LIMIT 5
+```
+
+We can also use `OPTIONAL` to get additional information, e.g. the location of origin of a strain:
+
+```sparql
+PREFIX d3o: <https://purl.dsmz.de/schema/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?strain ?name ?origin WHERE {
+    ?strain a d3o:Strain ;
+            rdfs:label ?name .
+    OPTIONAL {
+        ?location a d3o:LocationOfOrigin ;
+            d3o:describesStrain ?strain ;
+            d3o:hasCountry ?country ;
+            rdfs:label ?origin .
+    }
 }
 LIMIT 5
 ```
@@ -157,29 +179,6 @@ SELECT ?genus (AVG(?temperatureStart) AS ?averageTemperature) WHERE {
 }
 GROUP BY ?genus
 ```
-
-## Optional
-
-We can also use `OPTIONAL` to get additional information, e.g. the location of origin of a strain:
-
-```sparql
-PREFIX d3o: <https://purl.dsmz.de/schema/>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-
-SELECT ?strain ?name ?origin WHERE {
-    ?strain a d3o:Strain ;
-            rdfs:label ?name .
-    OPTIONAL {
-        ?location a d3o:LocationOfOrigin ;
-            d3o:describesStrain ?strain ;
-            d3o:hasCountry ?country ;
-            rdfs:label ?origin .
-    }
-}
-LIMIT 5
-```
-
-
 
 
 ## Federated queries
