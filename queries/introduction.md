@@ -29,11 +29,14 @@ We want to combine the species name and the designation of a strain in one colum
 ```sparql
 PREFIX d3o: <https://purl.dsmz.de/schema/>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-SELECT ?strain ?label ?genus ?species (CONCAT(?species, " ", ?des) AS ?genusSpecies) WHERE {
+SELECT 
+    ?strain ?label ?genus ?species 
+    (CONCAT(?species, " ", ?des) AS ?genusSpecies) 
+WHERE {
     ?strain a d3o:Strain ;
-            rdfs:label ?label ;
-            d3o:hasSpecies ?species ;
-			d3o:hasDesignation ?des .
+        rdfs:label ?label ;
+        d3o:hasSpecies ?species ;
+        d3o:hasDesignation ?des .
 }
 LIMIT 5
 ```
