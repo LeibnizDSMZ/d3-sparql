@@ -176,31 +176,3 @@ SELECT ?genus (AVG(?temperatureStart) AS ?averageTemperature) WHERE {
 GROUP BY ?genus
 ```
 
-
-## Federated queries
-
-We can also use federated queries to query multiple endpoints, e.g. to get the strain from UniProt:
-
-(coming soon)
-
-<!-- ```sparql
-PREFIX d3o: <https://purl.dsmz.de/schema/>
-PREFIX up: <http://purl.uniprot.org/core/>
-PREFIX taxon: <http://purl.uniprot.org/taxonomy/>
-
-SELECT ?strain ?name ?uniprot WHERE {
-    ?strain a d3o:Strain ;
-            rdfs:label ?name ;
-            d3o:hasTaxID ?tax. 
-    # Construct the taxonomy URI for uniprot
-    BIND(URI(CONCAT("http://purl.uniprot.org/taxonomy/", STR(?tax))) AS ?taxUri)
-  
-    SERVICE <https://sparql.uniprot.org/sparql> {
-        ?uniprot a up:Protein ;
-            up:organism ?taxon. 
-        ?taxon rdfs:subClassOf ?taxUri ;
-        up:rank up:Species .
-    }
-} -->
-
-
