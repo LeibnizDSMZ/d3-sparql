@@ -7,7 +7,7 @@ We can also infer the schema of the data by using SPARQL.
 
 ```sparql
 SELECT DISTINCT ?type WHERE {
-    ?s a ?type .
+    [] a ?type .
 }
 ```
 
@@ -18,7 +18,7 @@ We can also get all properties of a class:
 ```sparql
 PREFIX d3o: <https://purl.dsmz.de/schema/>
 SELECT DISTINCT ?predicate WHERE {
-  ?subject a d3o:Strain ;
+  [] a d3o:Strain ;
            ?predicate ?object .
 }
 ```
@@ -30,7 +30,7 @@ We can also get all objects of a property:
 ```sparql
 PREFIX d3o: <https://purl.dsmz.de/schema/>
 SELECT DISTINCT ?object WHERE {
-    ?subject a d3o:Strain ;
+    [] a d3o:Strain ;
         d3o:hasGenus ?object .
 }
 ```
