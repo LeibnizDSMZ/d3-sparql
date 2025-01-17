@@ -41,10 +41,10 @@ WHERE {
      d3o:describesStrain ?dbStrain;
      rdfs:label ?nutritionType .
 	 
-  ?dbStrain rdfs:label ?strain ;
-      d3o:hasBacDiveID ?bacdiveid .
+    ?dbStrain rdfs:label ?strain ;
+        d3o:hasBacDiveID ?bacdiveid .
   
-  FILTER(?nutritionType = "chemolithoautotroph")
+    FILTER(?nutritionType = "chemolithoautotroph")
 	
     # Use the BacDive ID to query the MediaDive endpoint
     SERVICE <https://sparql.dsmz.de/api/mediadive> {
